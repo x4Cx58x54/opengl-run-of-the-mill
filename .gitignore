@@ -1,0 +1,7 @@
+.vscode
+include
+lib
+*.exe
+*.dll
+*.a
+Makefile
