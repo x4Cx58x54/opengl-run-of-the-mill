@@ -7,32 +7,32 @@
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-	glViewport(0, 0, width, height);
+    glViewport(0, 0, width, height);
 }
+
 GLFWwindow* window;
 void CreateWindow(GLFWwindow*& window)
 {
     glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	window = glfwCreateWindow(800, 600, "Primitives - OpenGL", NULL, NULL);
-	if (window == NULL)
-	{
-		printf("Failed to create GLFW window.\n");
-		glfwTerminate();
-		exit(-1);
-	}
-	glfwMakeContextCurrent(window);
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		printf("Failed to initialize GLAD.\n");
-		exit(-1);
-	}
-	glViewport(0, 0, 800, 600);
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    window = glfwCreateWindow(800, 600, "Primitives - OpenGL", NULL, NULL);
+    if (window == NULL)
+    {
+        printf("Failed to create GLFW window.\n");
+        glfwTerminate();
+        exit(-1);
+    }
+    glfwMakeContextCurrent(window);
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        printf("Failed to initialize GLAD.\n");
+        exit(-1);
+    }
+    glViewport(0, 0, 800, 600);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 }
-
 
 int main()
 {
@@ -107,9 +107,9 @@ int main()
     glEnableVertexAttribArray(1);
 
     while(!glfwWindowShouldClose(window))
-	{
-		glClearColor(0.20f, 0.21f, 0.24f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+    {
+        glClearColor(0.20f, 0.21f, 0.24f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
 
         glUseProgram(shaderProgram);
 
@@ -122,10 +122,10 @@ int main()
         glDrawElements(GL_TRIANGLE_STRIP, 7, GL_UNSIGNED_INT, (void*)(16*sizeof(float)));
         glDrawElements(GL_TRIANGLE_FAN  , 6, GL_UNSIGNED_INT, (void*)(23*sizeof(float)));
 
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-	}
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
 
     glfwTerminate();
-	return 0;
+    return 0;
 }
