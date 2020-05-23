@@ -63,9 +63,9 @@ int main()
     glGenVertexArrays(NumVAOs, VAOs);
     glGenBuffers(NumBuffers, Buffers);
 
-    unsigned int shaderProgram0 = loadShaders("transform.vert", "triangle.frag");
-    unsigned int shaderProgram1 = loadShaders("axes.vert", "axes.frag");
-    glUseProgram(shaderProgram0);
+    unsigned int shaderProgram = loadShaders("transform.vert", "triangle.frag");
+    unsigned int axesShaderProgram = loadShaders("axes.vert", "axes.frag");
+    glUseProgram(shaderProgram);
 
     glGenBuffers(NumBuffers, Buffers);
     glBindVertexArray(VAOs[0]);
@@ -77,7 +77,7 @@ int main()
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(vertices)));
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
-    glUseProgram(shaderProgram1);
+    glUseProgram(axesShaderProgram);
     glBindVertexArray(VAOs[1]);
     glBindBuffer(GL_ARRAY_BUFFER, Buffers[1]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(coord_verteces) , coord_verteces, GL_STATIC_DRAW);
@@ -88,11 +88,11 @@ int main()
     {
         glClearColor(0.0, 0.0, 0.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
-        glUseProgram(shaderProgram0);
+        glUseProgram(shaderProgram);
         glBindVertexArray(VAOs[0]);
         glBindBuffer(GL_ARRAY_BUFFER, Buffers[0]);
         glDrawArrays(GL_TRIANGLES, 0, NumVertices);
-        glUseProgram(shaderProgram1);
+        glUseProgram(axesShaderProgram);
         glBindBuffer(GL_ARRAY_BUFFER, Buffers[1]);
         glBindVertexArray(VAOs[1]);
         glDrawArrays(GL_LINES, 0, 4);
