@@ -47,13 +47,13 @@ int main()
 
     float v_p = 0.4 * sqrtf(3.0) / 2.0;
     GLfloat vertices[NumVertices][4] = {
-        { 0.0, 0.0, -0.4,   1 },
-        { 0.0, 0.56, 0.0,   1 },
-        { v_p, 0.0,  0.4/2, 1 },
-        {-v_p, 0.0,  0.4/2, 1 },
+        { 0.0, 0.0, -0.4, 1 },
+        { 0.0, 0.56, 0.0, 1 },
+        { v_p, 0.0,  0.2, 1 },
+        {-v_p, 0.0,  0.2, 1 },
     };
     static const GLushort tetrahedron_indices[] =
-        { 0, 1, 2, 2, 3, 0, 2, 1, 3, 0, 3, 1 };
+        { 0, 1, 2, 3, 0, 1 };
     static const GLfloat colors[]{
         0.46, 0.77, 0.83, 1.0,
         0.48, 0.88, 0.59, 1.0,
@@ -127,22 +127,19 @@ int main()
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
 
+
     while (!glfwWindowShouldClose(window))
     {
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
-        glDisable(GL_DEPTH_TEST);
+        glEnable(GL_DEPTH_TEST);
         glClearColor(.0, .0, .0, 1.0);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glUseProgram(shaderProgram);
         glBindVertexArray(VAOs[0]);
         glBindBuffer(GL_ARRAY_BUFFER, Buffers[0]);
-
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, 0);
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, (void*)(3 * sizeof(GLushort)));
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, (void*)(6 * sizeof(GLushort)));
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, (void*)(9 * sizeof(GLushort)));
+        glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_SHORT, 0);
 
         glLineWidth(4);
         glBindVertexArray(VAOs[1]);

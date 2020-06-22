@@ -87,15 +87,8 @@ void rotate_around_axis(float x0, float y0, float z0, float x1, float y1, float 
 
 void main(void)
 {
-    // initial transform, along with axes.
     rotate_y(20);
     rotate_x(15);
-    translate(-0.3, -0.3, 0);
-
-    rotate_around_axis(0.2, 0.3, 0.5, 0.15, 0.45, -0.6, 90);
-    translate(0, -1.1, 0.1);
-    rotate_x(35);
-
     gl_Position = points;
     vs_color = in_color;
 }
