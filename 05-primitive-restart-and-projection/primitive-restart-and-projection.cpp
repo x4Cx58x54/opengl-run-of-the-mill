@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <math.h>
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
 #include "utils.h"
-
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -71,8 +66,8 @@ int main()
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
-    unsigned int shaderProgram = loadShaders("transform.vert", "glsl.frag");
-    glUseProgram(shaderProgram);
+    Shader shaderProgram = Shader("transform.vert", "primitive-restart-and-projection.frag");
+    shaderProgram.useProgram();
 
     glBindVertexArray(VAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);

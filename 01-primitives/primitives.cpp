@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string>
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
 #include "utils.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -37,7 +32,7 @@ void CreateWindow(GLFWwindow*& window)
 int main()
 {
     CreateWindow(window);
-    unsigned int shaderProgram = loadShaders("vert.glsl", "frag.glsl");
+    Shader shaderProgram = Shader("primitives.vert", "primitives.frag");
 
     float vertices[] = {
         -0.24f, -0.13f, 0.0f, 1.0f, 1.0f, 1.0f, //  0
@@ -111,7 +106,7 @@ int main()
         glClearColor(0.20f, 0.21f, 0.24f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shaderProgram);
+        shaderProgram.useProgram();
 
         glDrawElements(GL_POINTS, 1, GL_UNSIGNED_INT, (void*)(0*sizeof(float)));
         glDrawElements(GL_POINTS, 1, GL_UNSIGNED_INT, (void*)(1*sizeof(float)));

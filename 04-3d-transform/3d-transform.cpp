@@ -1,12 +1,8 @@
-#include <stdio.h>
 #include <math.h>
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
 #include "utils.h"
 
-enum VAO_IDs { Triangles, NumVAOs = 3 };
-enum Buffer_IDs { ArrayBuffer, NumBuffers = 3 };
-enum Attrib_IDs { vPosition };
+const int NumVAOs = 3;
+const int NumBuffers = 3;
 GLuint VAOs[NumVAOs];
 GLuint Buffers[NumBuffers];
 GLuint EBOs[2];
@@ -88,10 +84,10 @@ int main()
     glGenBuffers(NumBuffers, Buffers);
     glGenBuffers(NumBuffers, Buffers);
     glGenBuffers(2, EBOs);
-    unsigned int shaderProgram = loadShaders("transform.vert", "tetrahedron.frag");
-    unsigned int axesShaderProgram = loadShaders("axes.vert", "axes.frag");
+    Shader shaderProgram = Shader("transform.vert", "tetrahedron.frag");
+    Shader axesShaderProgram = Shader("axes.vert", "axes.frag");
 
-    glUseProgram(shaderProgram);
+    shaderProgram.useProgram();
     glBindVertexArray(VAOs[0]);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBOs[0]);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(tetrahedron_indices), tetrahedron_indices, GL_STATIC_DRAW);
@@ -116,7 +112,7 @@ int main()
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
 
-    glUseProgram(axesShaderProgram);
+    axesShaderProgram.useProgram();
     glBindVertexArray(VAOs[2]);
     glBindBuffer(GL_ARRAY_BUFFER, Buffers[2]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(coord_vertices) + sizeof(coord_colors), NULL, GL_STATIC_DRAW);
@@ -136,7 +132,7 @@ int main()
         glClearColor(.0, .0, .0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glUseProgram(shaderProgram);
+        shaderProgram.useProgram();
         glBindVertexArray(VAOs[0]);
         glBindBuffer(GL_ARRAY_BUFFER, Buffers[0]);
         glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_SHORT, 0);
@@ -152,7 +148,7 @@ int main()
         glDrawElements(GL_LINES, 2, GL_UNSIGNED_SHORT, (void*)(10 * sizeof(GLushort)));
 
         glLineWidth(5);
-        glUseProgram(axesShaderProgram);
+        axesShaderProgram.useProgram();
         glBindVertexArray(VAOs[2]);
         glBindBuffer(GL_ARRAY_BUFFER, Buffers[2]);
         glDrawArrays(GL_LINES, 0, 6);

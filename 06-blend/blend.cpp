@@ -1,15 +1,9 @@
-#include <stdio.h>
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
 #include "utils.h"
 
-enum VAO_IDs { Triangles, NumVAOs };
-enum Buffer_IDs { ArrayBuffer, NumBuffers };
-enum Attrib_IDs { vPosition = 0, vColor = 1 };
-
+const int NumVAOs = 1;
+const int NumBuffers = 1;
 GLuint VAOs[NumVAOs];
 GLuint Buffers[NumBuffers];
-
 const GLuint NumVertices = 6;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -161,18 +155,18 @@ int main()
         { { 0.00, 1.00, 0.00 ,0.5 }, { -0.70,  0.70 } }
     };
 
-    unsigned int shaderProgram = loadShaders("blend.vert", "blend.frag");
-    glUseProgram(shaderProgram);
+    Shader shaderProgram = Shader("blend.vert", "blend.frag");
+    shaderProgram.useProgram();
 
     glGenVertexArrays(NumVAOs, VAOs);
     glGenBuffers(NumBuffers, Buffers);
-    glBindVertexArray(VAOs[Triangles]);
-    glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
+    glBindVertexArray(VAOs[0]);
+    glBindBuffer(GL_ARRAY_BUFFER, Buffers[0]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(vColor, 4, GL_FLOAT, GL_TRUE, sizeof(VertexData), 0);
-    glVertexAttribPointer(vPosition, 2, GL_FLOAT, GL_FALSE, sizeof(VertexData), (void*)sizeof(vertices[0].color));
-    glEnableVertexAttribArray(vPosition);
-    glEnableVertexAttribArray(vColor);
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_TRUE, sizeof(VertexData), 0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(VertexData), (void*)sizeof(vertices[0].color));
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
 
     glEnable(GL_BLEND);
     blendenabled = true;
@@ -188,8 +182,8 @@ int main()
         glClearColor(.0, .0, .0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
-        glBindVertexArray(VAOs[Triangles]);
+        glBindBuffer(GL_ARRAY_BUFFER, Buffers[0]);
+        glBindVertexArray(VAOs[0]);
         glDrawArrays(GL_TRIANGLES, 0, NumVertices);
 
         glFlush();

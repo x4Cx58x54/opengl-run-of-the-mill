@@ -15,7 +15,7 @@ I chose [stb_image.h](https://github.com/nothings/stb/blob/master/stb_image.h) a
 In each separate folder under this directory, the programs are independent and runnable. Add the folder to the above-mentioned OpenGL environment, and compile the source by
 
 ```
-g++ $fileName ../utils.cpp -g -I../include -L../lib -o ../$executableName -lglad -lglfw3dll
+g++ $fileName -g -I../include -L../lib -o ../$executableName -lglad -lglfw3dll
 ```
 
 These commands may need some modification according to the actual directory structure.

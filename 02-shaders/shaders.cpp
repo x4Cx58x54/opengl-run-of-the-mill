@@ -1,13 +1,9 @@
-#include <stdio.h>
 #include <math.h>
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
 #include "utils.h"
 
 const float pi = acos(-1);
-enum VAO_IDs { Triangles, NumVAOs };
-enum Buffer_IDs { ArrayBuffer, NumBuffers };
-enum Attrib_IDs { vPosition = 0 };
+const int NumVAOs = 1;
+const int NumBuffers = 1;
 GLuint VAOs[NumVAOs];
 GLuint Buffers[NumBuffers];
 GLint Mode_View_Loc;
@@ -46,12 +42,12 @@ void polygon(int sides)
 void renewBuffer()
 {
     glGenVertexArrays(NumVAOs, VAOs);
-    glBindVertexArray(VAOs[Triangles]);
+    glBindVertexArray(VAOs[0]);
     glGenBuffers(NumBuffers, Buffers);
-    glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
+    glBindBuffer(GL_ARRAY_BUFFER, Buffers[0]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(vPosition, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-    glEnableVertexAttribArray(vPosition);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glEnableVertexAttribArray(0);
 }
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -126,12 +122,12 @@ int main()
     glViewport(0, 0, 800, 800);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetKeyCallback(window, key_callback);
-    GLuint program = loadShaders("GLSL.vert", "GLSL.frag");
-    glUseProgram(program);
+    Shader shaderProgram = Shader("shaders.vert", "shaders.frag");
+    shaderProgram.useProgram();
     renewBuffer();
-    Mode_View_Loc = glGetUniformLocation(program, "ModeColor");
-    Mode_Size_loc = glGetUniformLocation(program, "size");
-    Render_Mode_loc = glGetUniformLocation(program, "render_type");
+    Mode_View_Loc = glGetUniformLocation(shaderProgram.id, "ModeColor");
+    Mode_Size_loc = glGetUniformLocation(shaderProgram.id, "size");
+    Render_Mode_loc = glGetUniformLocation(shaderProgram.id, "render_type");
     glUniform1f(Mode_View_Loc, -1.0f);
     glUniform1f(Mode_Size_loc, Mode_Size);
     while(!glfwWindowShouldClose(window))
@@ -139,7 +135,7 @@ int main()
         renewBuffer();
         glClearColor(0.2f, 0.6f, 0.4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        glBindVertexArray(VAOs[VAO_IDs::Triangles]);
+        glBindVertexArray(VAOs[0]);
         glDrawArrays(GL_TRIANGLE_FAN, 0, NumVertices);
         glFlush();
         glfwSwapBuffers(window);
