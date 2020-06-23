@@ -2,6 +2,8 @@
 include/glad
 include/GLFW
 include/KHR
+include/glm
+include/stb_image.h
 lib
 *.exe
 *.dll
@@ -9,3 +11,4 @@ lib
 Makefile
 *.html
 *.py
+

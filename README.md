@@ -4,9 +4,11 @@ Some OpenGL commonplace procedures are piled here, only for the purpose of submi
 
 *About the coursework per se*: Each project is runnable, as long as the environment is set up as follows. The screenshots are ommitted here and will be sent in another way.
 
-## Setup
+## Setup and Dependency
 
 Here I will use GLFW and GLAD as the libraries to create graphics. Setup the environment following the steps in [https://learnopengl.com/Getting-started/Creating-a-window](https://learnopengl.com/Getting-started/Creating-a-window).
+
+I chose `stb_image.h` as the image loader, which is an open-source library located at [nothings/stb](https://github.com/nothings/stb/blob/master/stb_image.h). And the mathematics library is [OpenGL Mathematics (GLM)](https://github.com/g-truc/glm).
 
 ## Compile and Run
 
@@ -22,4 +24,4 @@ These commands may need some modification according to the actual directory stru
 
 [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
-*Special admonition*: Copying the source codes to gloss over any assignments/coursework is considered as plagiarism and piracy, and such behavior is not permitted. This restriction is applied to the contents in this whole repository, as an additional term, along with the GNU GPLv3, and is not stated specially in each file.
+Please star this repo if it is helpful to you!
