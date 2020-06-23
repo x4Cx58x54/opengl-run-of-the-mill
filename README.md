@@ -8,7 +8,7 @@ Some OpenGL commonplace procedures are piled here, only for the purpose of submi
 
 Here I will use GLFW and GLAD as the libraries to create graphics. Setup the environment following the steps in [https://learnopengl.com/Getting-started/Creating-a-window](https://learnopengl.com/Getting-started/Creating-a-window).
 
-I chose `stb_image.h` as the image loader, which is an open-source library located at [nothings/stb](https://github.com/nothings/stb/blob/master/stb_image.h). And the mathematics library is [OpenGL Mathematics (GLM)](https://github.com/g-truc/glm).
+I chose [stb_image.h](https://github.com/nothings/stb/blob/master/stb_image.h) as the image loader, and the mathematics library is [OpenGL Mathematics (GLM)](https://github.com/g-truc/glm).
 
 ## Compile and Run
 
